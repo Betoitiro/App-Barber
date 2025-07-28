@@ -1,5 +1,6 @@
 package App_Barber.com.br.AppBarber.v1.barber.domain.model;
 
+import App_Barber.com.br.AppBarber.v1.user.domain.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -37,6 +38,9 @@ public class Barber implements Serializable {
 
     @Column
     private String phone;
+
+    @OneToOne(mappedBy = "barber")
+    private User user;
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createAt;

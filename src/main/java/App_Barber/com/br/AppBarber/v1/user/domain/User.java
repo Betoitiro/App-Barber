@@ -1,14 +1,8 @@
 package App_Barber.com.br.AppBarber.v1.user.domain;
 
+import App_Barber.com.br.AppBarber.v1.barber.domain.model.Barber;
 import App_Barber.com.br.AppBarber.v1.user.dto.RegisterDTO;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -50,6 +44,11 @@ public class User implements UserDetails {
     private UserRole role;
 
 
+    @OneToOne
+    @JoinColumn(name = "barber_id", unique = true, nullable = false)
+    private Barber barber;
+
+
     public User(String login, String password, UserRole user) {
         this.login = login;
         this.password = password;
@@ -67,10 +66,10 @@ public class User implements UserDetails {
         if (this.role == UserRole.ADMIN)
             return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),
                     new SimpleGrantedAuthority("ROLE_USER"),
-                    new SimpleGrantedAuthority("ROLE_SELLER"));
+                    new SimpleGrantedAuthority("ROLE_BARBER"));
         else
             return List.of(new SimpleGrantedAuthority("ROLE_USER"),
-                    new SimpleGrantedAuthority("ROLE_SELLER")
+                    new SimpleGrantedAuthority("ROLE_BARBER")
             );
     }
 

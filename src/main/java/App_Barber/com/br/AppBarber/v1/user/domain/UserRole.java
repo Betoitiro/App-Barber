@@ -10,7 +10,7 @@ public enum UserRole {
 
     USER("user"),
 
-    SELLER("seller");
+    BARBER("barber");
 
     private String role;
 }
