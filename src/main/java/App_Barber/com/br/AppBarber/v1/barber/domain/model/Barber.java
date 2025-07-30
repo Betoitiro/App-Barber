@@ -1,6 +1,6 @@
 package App_Barber.com.br.AppBarber.v1.barber.domain.model;
 
-import App_Barber.com.br.AppBarber.v1.user.domain.User;
+import App_Barber.com.br.AppBarber.v2.user.jpa.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 public class Barber implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
@@ -39,8 +39,10 @@ public class Barber implements Serializable {
     @Column
     private String phone;
 
-    @OneToOne(mappedBy = "barber")
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createAt;
