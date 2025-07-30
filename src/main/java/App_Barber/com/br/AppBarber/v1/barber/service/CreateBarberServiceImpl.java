@@ -25,6 +25,7 @@ public class CreateBarberServiceImpl {
         var userId = authenticatedUserService.getAuthenticatedUser();
         var user = userRepository.findById(String.valueOf(userId))
                 .orElseThrow(() -> new IllegalArgumentException("Usuario não encontrado"));
+
         var createBarber = Barber.builder()
                 .name(createBarberRequestDTO.getName())
                 .email(createBarberRequestDTO.getEmail())
