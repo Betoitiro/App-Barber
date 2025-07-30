@@ -1,5 +1,6 @@
 package App_Barber.com.br.AppBarber.v2.user.service;
 
+import App_Barber.com.br.AppBarber.v2.user.jpa.User;
 import App_Barber.com.br.AppBarber.v2.user.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +31,18 @@ public class AuthenticatedUserService {
             logger.info("Usuário autenticado com ID: {}", userId); // Adiciona o log aqui
 
             return userId;
+        }
+
+        throw new IllegalArgumentException("Usuário não autenticado ou não encontrado.");
+    }
+    public User getAuthenticatedUserEntity() {
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+
+            return userRepository.findUserByLogin(username)
+                    .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado."));
         }
 
         throw new IllegalArgumentException("Usuário não autenticado ou não encontrado.");

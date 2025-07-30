@@ -27,12 +27,11 @@ public class BarberController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Void> createBarber(@RequestBody CreateBarberRequestDTO createBarberRequestDTO){
+    public void createBarber(@RequestBody CreateBarberRequestDTO createBarberRequestDTO){
         createBarberService.createBarberService(createBarberRequestDTO);
-        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PostMapping("/addres")
+    @PostMapping("/address")
     public void createAddressBarber(@RequestBody CreateAddressBarberRequestDTO createAddressBarberRequestDTO){
         createAddressBarberService.createAddressBarber(createAddressBarberRequestDTO);
     }

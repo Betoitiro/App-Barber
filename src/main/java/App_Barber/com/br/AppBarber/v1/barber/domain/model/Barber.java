@@ -52,4 +52,9 @@ public class Barber implements Serializable {
 
     @OneToOne(mappedBy = "barber", cascade = CascadeType.ALL, orphanRemoval = true)
     private AdressBarber address;
+
+    public String getUserLogin() {
+        return this.user != null ? this.user.getLogin() : null;
+    }
+
 }
